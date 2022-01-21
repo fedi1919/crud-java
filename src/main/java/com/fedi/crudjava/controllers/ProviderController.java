@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -57,4 +58,46 @@ public class ProviderController {
         return "redirect:list";
     }
 
+    @GetMapping("delete/{id}")
+    public String deleteProvider(@PathVariable("id") long idp, Model model) {  //@pathvarirable pour recuperer un parametre dans l'url
+
+
+        //long id2 = 100L;
+
+        Provider provider = providerRepository.findById(idp).orElseThrow(() -> new IllegalArgumentException("Invalid provider Id:" + idp));
+
+        System.out.println("suite du programme...");
+
+        providerRepository.delete(provider);
+
+       /*model.addAttribute("providers",
+           providerRepository.findAll());
+        return "provider/listProviders";*/
+
+        return "redirect:../list";
+    }
+
+    @GetMapping("edit/{id}")
+    public String showProviderFormToUpdate(@PathVariable("id") long
+                                                   id, Model model) {
+        Provider provider = providerRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("Invalid provider Id:" + id));
+
+        model.addAttribute("provider", provider);
+
+        return "provider/updateProvider";
+    }
+
+    @PostMapping("update")
+    public String updateProvider(@Valid Provider provider,
+                                 BindingResult result, Model model) {
+
+
+        providerRepository.save(provider);
+        return"redirect:list";
+
+    }
 }
+
+
+

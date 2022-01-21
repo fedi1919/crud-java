@@ -15,7 +15,7 @@
         <div class="card-body">
             <div class="col-md-8">
                 <form action="#"
-                      th:action="@{/provider/update}" th:object="${provider}"
+                      th:action="@{/provider/update}" th:object="${provider}" // recuperer les données dans le formulaire
                       method="post">
 
                     <input type="hidden" th:field="*{id}"/>
