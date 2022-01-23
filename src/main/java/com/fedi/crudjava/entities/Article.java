@@ -17,6 +17,7 @@ public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
     @NotBlank(message = "Label is mandatory")
     @Column(name = "label")
     private String label;
@@ -25,12 +26,17 @@ public class Article {
     @Column(name = "price")
     private float price;
 
+    @Column(name = "picture")
+    private String picture;
+
     public Article() {}
 
-    public Article(String label, float price) {
+    public Article(String label, float price, String picture) {
         this.price = price;
         this.label = label;
+        this.picture = picture;
     }
+
 
     public void setId(long id) {
         this.id = id;
@@ -53,15 +59,19 @@ public class Article {
         this.price = price;
     }
 
+    public String getPicture() {return picture;}
+    public void setPicture(String picture) {this.picture = picture;}
+
     /**** Many To One ****/
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "provider_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
+
     private Provider provider;
+
     public Provider getProvider() {
         return provider;
     }
-
     public void setProvider(Provider provider) {
         this.provider=provider;
     }
