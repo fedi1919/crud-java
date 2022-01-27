@@ -15,8 +15,8 @@
         <div class="card-body">
             <div class="col-md-8">
                 <form action="#"
-                      th:action="@{/provider/update}" th:object="${provider}" // recuperer les données dans le formulaire
-                      method="post">
+                      th:action="@{/provider/update}" th:object="${provider}"
+                      method="post" enctype="multipart/form-data">
 
                     <input type="hidden" th:field="*{id}"/>
                     <div class="row">
@@ -38,6 +38,17 @@
                                                                                               id="address"
                                                                                               placeholder="address">
                             <span th:if="${#fields.hasErrors('address')}" th:errors="address" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group col-md-8">
+                            <label for="oldLogo" class="col-form-label">Old Logo</label>
+                            <img alt="Image" th:src="@{'/images/providers/'+ ${provider.logo}}" width="50" height="50" id="oldLogo"/>
+                        </div>
+
+                        <div class="form-group col-md-8">
+                            <label for="newLogo" class="col-form-label">New Logo</label>
+                            <input class="form-control" type="file"
+                                   name="files" id="newLogo" multiple>
                         </div>
                         <div class="form-group col-md-8">
                             <input type="submit" class="btn btn-primary" value="Update Provider">

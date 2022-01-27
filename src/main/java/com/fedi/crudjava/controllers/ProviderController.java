@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Controller
@@ -55,6 +59,22 @@ public class ProviderController {
         if (result.hasErrors()) {
             return "provider/addProvider";
         }
+
+        // debut upload image
+
+        StringBuilder fileName = new StringBuilder();
+        MultipartFile file = files[0];
+        Path fileNameAndPath = Paths.get(providersDirectory, file.getOriginalFilename()); //obtenir le path de l'image
+
+        fileName.append(file.getOriginalFilename());  //getOriginalFilename nous donne le nom de l'image
+        try {
+            Files.write(fileNameAndPath, file.getBytes()); //write le path dans la base //getBytes nous donne le data(Bytes)
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        provider.setLogo(fileName.toString());
+        //fin upload image
         providerRepository.save(provider);
         return "redirect:list";
     }
@@ -91,8 +111,24 @@ public class ProviderController {
 
     @PostMapping("update")
     public String updateProvider(@Valid Provider provider,
-                                 BindingResult result, Model model) {
+                                 BindingResult result, Model model,
+                                 @RequestParam("files") MultipartFile[] files) {
 
+        // debut upload image
+
+        StringBuilder fileName = new StringBuilder();
+        MultipartFile file = files[0];
+        Path fileNameAndPath = Paths.get(providersDirectory, file.getOriginalFilename()); //obtenir le path de l'image
+
+        fileName.append(file.getOriginalFilename());  //getOriginalFilename nous donne le nom de l'image
+        try {
+            Files.write(fileNameAndPath, file.getBytes()); //write le path dans la base //getBytes nous donne le data(Bytes)
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        provider.setLogo(fileName.toString());
+        //fin upload image
 
         providerRepository.save(provider);
         return"redirect:list";
