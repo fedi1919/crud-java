@@ -32,7 +32,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/article/")
 public class ArticleController {
 
-    public static String uploadDirectory = System.getProperty("user.dir")+"/src/main/resources/static/uploads";
+    public static String uploadDirectory = System.getProperty("user.dir")+"/src/main/resources/static/images/articles";
 
     private final ArticleRepository articleRepository;
     private final ProviderRepository providerRepository;
@@ -62,7 +62,6 @@ public class ArticleController {
     }
 
     @PostMapping("add")
-    //@ResponseBody
     public String addArticle(@Valid Article article, BindingResult result, // @valid => les donnes de formulaire sont conformes à celle de la base , BindingResult => nous afficher un message d'erreur si les donnes ne sont  pas conformes
                              @RequestParam(name = "providerId", required = false) Long p,
                              @RequestParam("files") MultipartFile[] files) {

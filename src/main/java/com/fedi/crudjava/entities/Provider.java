@@ -26,13 +26,19 @@ public class Provider {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "logo")
+    private String logo;
+
+
+
     public Provider() {
     }
 
-    public Provider(String name, String address, String email) {
+    public Provider(String name, String address, String email,String logo) {
         this.name = name;
         this.address = address;
         this.email = email;
+        this.logo=logo;
     }
 
     public void setId(long id) {
@@ -66,5 +72,9 @@ public class Provider {
     public String getAddress() {
         return address;
     }
+
+    public String getLogo() {return logo;}
+
+    public void setLogo(String logo) {this.logo = logo;}
 }
 
