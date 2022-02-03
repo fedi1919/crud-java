@@ -77,9 +77,9 @@ ${users}">
                                     </form>
                                 </td>
                                 <td><a
-                                        th:href="@{/accounts/enable/{id} (id=${user.id})}">Activer</a></td>
+                                        th:href="@{/accounts/enable/{id}/{email} (id=${user.id}, email=${user.email})}">Activer</a></td>
                                 <td><a
-                                        th:href="@{/accounts/disable/{id}(id=${user.id})}">Désactiver</a></td>
+                                        th:href="@{/accounts/disable/{id}/{email} (id=${user.id}, email=${user.email})}">Désactiver</a></td>
                             </tr>
                             </tbody>
                         </table>
